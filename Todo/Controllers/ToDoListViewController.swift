@@ -15,7 +15,9 @@ class ToDoListViewController: SwipeTableViewController {
     var todoItems: Results<Item>?
     let realm = try! Realm()
     
+        
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var selectedCategory : Category? {
         didSet {
@@ -43,15 +45,15 @@ class ToDoListViewController: SwipeTableViewController {
                 
                 guard let navBar = navigationController?.navigationBar else {fatalError("navigation controller does not exist")}
                 
-                if let navBar = UIColor(hexString: colorHex) {
+                if let navBarColor = UIColor(hexString: colorHex) {
             
                     navBar.barTintColor = navBarColor
                     
-                    navBar.tintColor = ContrastColot(navBarColor, returnFlat: true)
+                    navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
                     
-                    navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+                    navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
                     
-                    searchBar.barTintColor = UIColor(hexString: colorHex)
+                    searchBar.barTintColor = navBarColor
             }
         }
     }
@@ -60,8 +62,8 @@ class ToDoListViewController: SwipeTableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         guard let originalColor = UIColor(hexString: "1D9BF6") else {fatalError("error loading colors")}
         navigationController?.navigationBar.barTintColor = originalColor
-        navigationController?.navigationBar.TintColor = FlatWhite()
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringkey.foregroundColor: flatWhite()]
+        navigationController?.navigationBar.tintColor = FlatWhite()
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: FlatWhite()]
     }
     
     
